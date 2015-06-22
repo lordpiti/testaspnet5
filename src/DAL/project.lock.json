@@ -1,0 +1,40 @@
+{
+  "locked": false,
+  "version": -9998,
+  "projectFileDependencyGroups": {
+    "": [
+      "mongocsharpdriver >= 1.8.3"
+    ],
+    "DNX,Version=v4.5.1": []
+  },
+  "libraries": {
+    "mongocsharpdriver/1.8.3": {
+      "serviceable": false,
+      "sha": "A3s7XUrg0hfWtBvKW+KTl/7EVeB9HzC3a6dEQ0tUxdnckDRDHFqfDIkf56+iL3cClLfSOAFbqWKnIj53kTET+g==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net35/MongoDB.Bson.dll",
+            "lib/net35/MongoDB.Driver.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net35/MongoDB.Bson.dll",
+            "lib/net35/MongoDB.Driver.dll"
+          ]
+        }
+      },
+      "files": [
+        "License.rtf",
+        "mongocsharpdriver.1.8.3.nupkg",
+        "mongocsharpdriver.1.8.3.nupkg.sha512",
+        "mongocsharpdriver.nuspec",
+        "lib/net35/MongoDB.Bson.dll",
+        "lib/net35/MongoDB.Bson.XML",
+        "lib/net35/MongoDB.Driver.dll",
+        "lib/net35/MongoDB.Driver.XML"
+      ]
+    }
+  }
+}
