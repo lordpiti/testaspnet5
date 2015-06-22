@@ -65,7 +65,7 @@ namespace WebApplication3.Controllers
         [Route("/api/books")]
         public Book CreateBook([FromBody] Book theBook)
         {
-            return _bookRepository.Create(theBook);
+            return _bookRepository.Create(theBook);//test comment
         }
 
         [HttpPut]
