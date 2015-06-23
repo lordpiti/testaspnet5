@@ -26,7 +26,8 @@
       "Microsoft.Framework.Logging.Console >= 1.0.0-beta4",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-beta4",
       "mongocsharpdriver >= 1.8.3",
-      "DAL "
+      "DAL ",
+      "EntityFramework >= 7.0.0-beta4"
     ],
     "DNX,Version=v4.5.1": []
   },

@@ -25,6 +25,7 @@ using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json.Serialization;
 using DAL.Interface;
 using DAL.Concrete;
+using DAL.Models;
 
 namespace WebApplication3
 {
@@ -58,12 +59,12 @@ namespace WebApplication3
             // Add EF services to the services container.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
+                .AddDbContext<BooksContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             // Add Identity services to the services container.
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<BooksContext>()
                 .AddDefaultTokenProviders();
 
             // Configure the options for the authentication middleware.
@@ -92,7 +93,7 @@ namespace WebApplication3
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             });
 
-            services.AddSingleton<IBookRepository, BookMongoRepository>();
+            services.AddSingleton<IBookRepository, BookEFRepository>();
 
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
