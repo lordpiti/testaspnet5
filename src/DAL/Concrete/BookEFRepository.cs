@@ -76,6 +76,7 @@ namespace DAL.Concrete
 
             libro.IdMongo = libro.Id.ToString().PadLeft(24, '0');
             _context.SaveChanges();
+            book.Id = ObjectId.Parse(libro.IdMongo);
 
             return book;
         }
