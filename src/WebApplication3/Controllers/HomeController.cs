@@ -47,7 +47,7 @@ namespace WebApplication3.Controllers
 
         [HttpGet]
         [Route("/api/books")]
-        public List<Book> GetBooks()
+        public List<GenericBook> GetBooks()
         {
             return _bookRepository.GetBooks();
         }
@@ -63,14 +63,14 @@ namespace WebApplication3.Controllers
 
         [HttpPost]
         [Route("/api/books")]
-        public Book CreateBook([FromBody] Book theBook)
+        public GenericBook CreateBook([FromBody] GenericBook theBook)
         {
             return _bookRepository.Create(theBook);//test comment
         }
 
         [HttpPut]
         [Route("/api/books/{id}")]
-        public Book UpdateBook(string id, [FromBody]Book book)
+        public GenericBook UpdateBook(string id, [FromBody]GenericBook book)
         {          
             return _bookRepository.Update(id, book);
         }

@@ -23,11 +23,12 @@ namespace DAL.Concrete
             _database = _server.GetDatabase("bookAPI");
         }
 
-        public List<Book> GetBooks()
+        public List<GenericBook> GetBooks()
         {
             var books = _database.GetCollection<Book>("books").FindAll();
+            var destinationList = AutoMapper.Mapper.Map<List<GenericBook>>(books);
 
-            return books.ToList();
+            return destinationList;
         }
 
         public bool Delete(string id)
@@ -38,19 +39,27 @@ namespace DAL.Concrete
             return true;
         }
 
-        public Book Create(Book book)
+        public GenericBook Create(GenericBook book)
         {
-            _database.GetCollection<Book>("books").Save(book);
+            var bookMongo = AutoMapper.Mapper.Map<Book>(book);
+
+            _database.GetCollection<Book>("books").Save(bookMongo);
+
+            book.Id = bookMongo.Id.ToString();
 
             return book;
         }
 
-        public Book Update(string id, Book book)
+        public GenericBook Update(string id, GenericBook book)
         {
-            book.Id = new MongoDB.Bson.ObjectId(id);
-            var query = Query<Book>.EQ(e => e.Id, book.Id);
-            var update = Update<Book>.Replace(book); // update modifiers
+            var bookMongo = AutoMapper.Mapper.Map<Book>(book);
+
+            bookMongo.Id = new MongoDB.Bson.ObjectId(id);
+            var query = Query<Book>.EQ(e => e.Id, bookMongo.Id);
+            var update = Update<Book>.Replace(bookMongo); // update modifiers
             _database.GetCollection<Book>("books").Update(query, update);
+
+            book = AutoMapper.Mapper.Map<GenericBook>(bookMongo);
 
             return book;
         }

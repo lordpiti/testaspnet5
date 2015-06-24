@@ -8,11 +8,11 @@ namespace DAL.Interface
 {
     public interface IBookRepository
     {
-        List<Book> GetBooks();
+        List<GenericBook> GetBooks();
         bool Delete(string id);
 
-        Book Create(Book book);
+        GenericBook Create(GenericBook book);
 
-        Book Update(string id, Book book);
+        GenericBook Update(string id, GenericBook book);
     }
 }

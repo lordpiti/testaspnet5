@@ -17,74 +17,39 @@ namespace DAL.Concrete
             _context = new BooksContext();
         }
 
-        private Book LibroToBook(Libro libro)
-        {
-
-            //var id = ObjectId.Parse(libro.Id.ToString().PadLeft(24, '0'));//new MongoDB.Bson.ObjectId(libro.Id.ToString() + "111111111111");
-
-            return new Book() {
-                Author = libro.Author,
-                Title = libro.Title,
-                Id = ObjectId.Parse(libro.IdMongo),
-                read = libro.Read
-            };
-        }
-
-        private Libro BookToLibro(Book libro)
-        {
-            //int id = Convert.ToInt32(libro.Id.ToString());
-            int id = Convert.ToInt32(libro.Id.ToString());
-            
-
-            return new Libro() {
-                Author = libro.Author,
-                Id = id,
-                Title = libro.Title,
-                Read = libro.read
-            };
-        }
-
-        public List<Book> GetBooks()
+        public List<GenericBook> GetBooks()
         {
             var libros = _context.Libros;
 
-            var books = libros.Select(x => LibroToBook(x));
+            var destinationList = AutoMapper.Mapper.Map<List<GenericBook>>(libros);
 
-            return books.ToList();
+            return destinationList;
         }
 
         public bool Delete(string id)
         {
-            var selectedItem =_context.Libros.FirstOrDefault(x=>x.IdMongo==id);
+            var selectedItem =_context.Libros.FirstOrDefault(x=>x.Id==Convert.ToInt32(id));
             _context.Libros.Remove(selectedItem);
             _context.SaveChanges();
 
             return true;
         }
 
-        public Book Create(Book book)
+        public GenericBook Create(GenericBook book)
         {
-            var libro = new Libro()
-            {
-                Author = book.Author,
-                Read = book.read,
-                Title = book.Title
-            };
+            var libro = AutoMapper.Mapper.Map<Libro>(book);
 
             _context.Libros.Add(libro);
             _context.SaveChanges();
 
-            libro.IdMongo = libro.Id.ToString().PadLeft(24, '0');
-            _context.SaveChanges();
-            book.Id = ObjectId.Parse(libro.IdMongo);
-
+            book.Id=libro.Id.ToString();
             return book;
         }
 
-        public Book Update(string id, Book book)
+        public GenericBook Update(string id, GenericBook book)
         {
-            var libro = _context.Libros.FirstOrDefault(x => x.IdMongo == id);
-            libro.Read = book.read;
+            var libro = _context.Libros.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
+            libro.Read = book.Read;
             libro.Title = book.Title;
             libro.Author = book.Author;
             _context.SaveChanges();
