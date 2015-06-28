@@ -1,13 +1,25 @@
 (function () {
     'use strict';
 
+    loadGoogleCharts();
+
     angular.module('moviesApp', ['moviesServices', 'ui.bootstrap'])
         .controller('moviesController', ['$scope', 'Movies', '$modal', moviesController])
         .controller('instanceController', ['$scope', '$modalInstance', 'currentItem','itemList', instanceController]);
 
 
-    function moviesController($scope, Movies, $modal) {
+    function loadGoogleCharts()
+    {
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', { 'packages': ['corechart'] });
+        // Set a callback to run when the Google Visualization API is loaded.
+        //google.setOnLoadCallback(drawChart);
 
+
+    }
+
+    function moviesController($scope, Movies, $modal) {
+        
         $scope.defaults = {
             property: "title",
             direction: "+"
@@ -39,7 +51,12 @@
 
         Movies.query(function (result) {
             $scope.testCollection = result;
+            //drawChart();
         });
+
+        $scope.$watch("testCollection", function (oldValue, newValue) {
+            drawChart();
+        }, true);
 
         $scope.deleteBook = function (item) {
             var id = item._id;
@@ -47,6 +64,7 @@
                 id = item.id;
             }
 
+            //This is just to update the grid in the main view
             var indexToDelete = -1;
 
             $.each($scope.testCollection, function (index, value) {
@@ -60,8 +78,6 @@
                 $scope.testCollection.splice(indexToDelete, 1);
             }
         }
-
-        $scope.items = ['item1', 'item2', 'item3'];
 
         $scope.open = function (currentItem) {
 
@@ -90,11 +106,63 @@
                 //alert('Modal dismissed at: ' + new Date());
             });
         };
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            var collection = [];
+
+            function findItemInCollection(item, collection)
+            {
+                var theValue;
+                $.each(collection, function (index, value) {
+                    if (value[0] ==item)
+                    {
+                        theValue = value;
+                        return;
+                    }
+                });
+                return theValue;
+            }
+
+            $.each($scope.testCollection, function (index, value)
+            {
+                var col = findItemInCollection(value.author, collection);
+
+                if (col==null)
+                {
+                    collection.push([value.author, 1]);
+                }
+                else
+                {
+                    col[1] = col[1] + 1;
+                }
+            });
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Author');
+            data.addColumn('number', 'Number');
+            data.addRows(collection);
+
+            // Set chart options
+            var options = {
+                'title': 'Books by author',
+                'width': 400,
+                'height': 300
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
     }
 
     function instanceController($scope, $modalInstance, currentItem, itemList) {
 
-        $scope.currentItem = currentItem;
+        $scope.currentItem = angular.copy(currentItem);
         $scope.itemList = itemList;
 
         $scope.categories = [
@@ -114,11 +182,23 @@
 
             //Movies.update({ id:id }, user);
             user.$update();
+
+            //This is just to update the grid in the main view
+            var indexToUpdate = null;
+
+            $.each($scope.itemList, function (index, value) {
+                if (value.id == user.id || value._id == user._id) {
+                    indexToUpdate = index;
+                    return;
+                }
+            });
+            $scope.itemList[indexToUpdate] = user;
         }
 
         $scope.addBook = function (item) {
             item.$save();
-            $scope.itemList.push(currentItem);
+            //This is just to update the grid in the main view
+            $scope.itemList.push(item);
         }
 
         $scope.ok = function (book) {
@@ -128,7 +208,7 @@
             else {
                 $scope.editBook(book);
             }
-            $modalInstance.close($scope.selected.item);
+            $modalInstance.close();
         };
 
         $scope.cancel = function () {
