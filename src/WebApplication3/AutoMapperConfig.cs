@@ -17,7 +17,7 @@ namespace WebApplication3
 
             AutoMapper.Mapper.CreateMap<GenericBook, Book>()
                 .ForMember(dest => dest.Id,
-                           opts => opts.MapFrom(src => new ObjectId(src.Id)));
+                           opts => opts.MapFrom(src => src.Id!=null?new ObjectId(src.Id):new ObjectId()));
 
             AutoMapper.Mapper.CreateMap<Libro, GenericBook>()
                 .ForMember(dest => dest.Id,
