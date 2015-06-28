@@ -15,5 +15,7 @@ namespace DAL.Models
         public string Author { get; set; }
 
         public bool Read { get; set; }
+
+        //public Category Category { get; set; }
     }
 }

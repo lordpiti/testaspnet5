@@ -1,10 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('moviesApp', ['moviesServices']).controller('moviesController', ['$scope', 'Movies', moviesController]);
+    angular.module('moviesApp', ['moviesServices', 'ui.bootstrap'])
+        .controller('moviesController', ['$scope', 'Movies', '$modal', moviesController])
+        .controller('instanceController', ['$scope', '$modalInstance', 'currentItem','itemList', instanceController]);
 
 
-    function moviesController($scope, Movies) {
+    function moviesController($scope, Movies, $modal) {
 
         $scope.defaults = {
             property: "title",
@@ -31,37 +33,13 @@
             }
         }
 
-        $scope.realFilter=function() {
+        $scope.realFilter = function () {
             return $scope.filter.direction + $scope.filter.property;
-        } 
+        }
 
         Movies.query(function (result) {
             $scope.testCollection = result;
         });
-
-        $scope.newBook = { title: "default title" };
-
-        $scope.editBook = function (item) {
-            //var id = $scope.testCollection[index]._id;
-
-            var user = item;
-
-            if (user._id == null) {
-                user._id = user.id;
-            }
-
-            //Movies.update({ id:id }, user);
-            user.$update();
-        }
-
-        $scope.addBook = function (title) {
-            $scope.newTodoModel = new Movies();
-            $scope.newTodoModel.title = title;
-            $scope.newTodoModel.$save();
-            //Movies.save($scope.newTodoModel);
-
-            $scope.testCollection.push($scope.newTodoModel);
-        }
 
         $scope.deleteBook = function (item) {
             var id = item._id;
@@ -82,5 +60,79 @@
                 $scope.testCollection.splice(indexToDelete, 1);
             }
         }
+
+        $scope.items = ['item1', 'item2', 'item3'];
+
+        $scope.open = function (currentItem) {
+
+            if (currentItem == null)
+            {
+                currentItem = new Movies();
+            }
+
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'myModalContent.html',
+                controller: 'instanceController',
+                resolve: {
+                    currentItem: function () {
+                        return currentItem;
+                    },
+                    itemList: function () {
+                        return $scope.testCollection;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                //$scope.selected = selectedItem;
+            }, function () {
+                //alert('Modal dismissed at: ' + new Date());
+            });
+        };
     }
+
+    function instanceController($scope, $modalInstance, currentItem, itemList) {
+
+        $scope.currentItem = currentItem;
+        $scope.itemList = itemList;
+
+        $scope.categories = [
+            { Key: "Sci-fi", Value: 1 },
+            { Key: "Comedy", Value: 2 },
+            { Key: "Terror", Value: 3 }
+        ];
+
+        $scope.editBook = function (item) {
+            //var id = $scope.testCollection[index]._id;
+
+            var user = item;
+
+            if (user._id == null) {
+                user._id = user.id;
+            }
+
+            //Movies.update({ id:id }, user);
+            user.$update();
+        }
+
+        $scope.addBook = function (item) {
+            item.$save();
+            $scope.itemList.push(currentItem);
+        }
+
+        $scope.ok = function (book) {
+            if (book.id == null && book._id == null) {
+                $scope.addBook(book);
+            }
+            else {
+                $scope.editBook(book);
+            }
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
 })();

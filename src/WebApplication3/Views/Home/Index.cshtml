@@ -67,8 +67,9 @@
 
 <div ng-app="moviesApp" >
     <div ng-controller="moviesController">
-        <input ng-model="newBook.title" />
-        <button ng-click="addBook(newBook.title)">ADD BOOK</button>
+
+        <button class="btn btn-default" ng-click="open()">Add item</button>
+       <br />
 
         <table class="table table-bordered">
             <thead>
@@ -80,16 +81,39 @@
             </thead>
             <tr ng-repeat="item in (testCollection | orderBy:realFilter()) track by $index">
                 <td>
-                    <input ng-model="item.title" ng-blur="editBook(item)" />
+                    {{item.title}}
                 </td>
                 <td>
-                    <input ng-model="item.author" ng-blur="editBook(item)" />
+                    {{item.author}}
                 </td>
                 <td>
-                    <button ng-click="deleteBook(item)">Delete</button>
+                    <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
+                    <button class="btn btn-default" ng-click="open(item)">Edit</button>
                 </td>
             </tr>
         </table>
+
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Add/Edit item</h3>
+            </div>
+            <div class="modal-body">
+                <input ng-model="currentItem.title" /><br />
+                <input ng-model="currentItem.author" /><br />
+                <select class="form-control">
+                    <option ng-repeat="item in categories track by $index" value="{{item.Value}}">
+                        {{item.Key}}
+                    </option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok(currentItem)">Save</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        
     </div>
 </div>
 

@@ -27,11 +27,34 @@
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-beta4",
       "mongocsharpdriver >= 1.8.3",
       "DAL ",
-      "EntityFramework >= 7.0.0-beta4"
+      "EntityFramework >= 7.0.0-beta4",
+      "Angular.UI.Bootstrap >= 0.13.0"
     ],
     "DNX,Version=v4.5.1": []
   },
   "libraries": {
+    "Angular.UI.Bootstrap/0.13.0": {
+      "serviceable": false,
+      "sha": "Vor4dtQUtxkKVo9CQzEwqiY7GXKn264lq9WU143fuJh1WxwAd0JAzhmLzEd2P+9ezgzLhLtc9G7Jaq3uIs/FFQ==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "Angular.UI.Bootstrap.0.13.0.nupkg",
+        "Angular.UI.Bootstrap.0.13.0.nupkg.sha512",
+        "Angular.UI.Bootstrap.nuspec",
+        "content/Content/ui-bootstrap-csp.css",
+        "content/Scripts/angular-ui/ui-bootstrap-tpls.js",
+        "content/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
+        "content/Scripts/angular-ui/ui-bootstrap.js",
+        "content/Scripts/angular-ui/ui-bootstrap.min.js"
+      ]
+    },
     "AutoMapper/3.3.1": {
       "serviceable": false,
       "sha": "6pCunP4L1rZRu+wgMCivsgu/52mZOCc2mxIfPWDLHSVL8g/8+gtVBSHT0K8yoJwaOXFtaGUilV5WoVqKAHdswQ==",
