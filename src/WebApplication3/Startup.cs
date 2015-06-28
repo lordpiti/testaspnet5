@@ -139,6 +139,10 @@ namespace WebApplication3
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "EventsCourses",
+                    template: "book",
+                    defaults: new { controller = "Home", action = "Index" });
+                routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });

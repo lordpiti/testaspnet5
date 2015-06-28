@@ -3,9 +3,25 @@
 
     loadGoogleCharts();
 
-    angular.module('moviesApp', ['moviesServices', 'ui.bootstrap'])
-        .controller('moviesController', ['$scope', 'Movies', '$modal', moviesController])
-        .controller('instanceController', ['$scope', '$modalInstance', 'currentItem','itemList', instanceController]);
+    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap','ngRoute']);
+
+   
+
+    theApp.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/book', {
+                templateUrl: '/pages/test.html'
+            })
+            .when('/', {
+                templateUrl: '/pages/index.html'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    }]);
+
+    theApp.controller('moviesController', ['$scope', 'Movies', '$modal', moviesController])
+    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
 
 
     function loadGoogleCharts()
@@ -19,7 +35,8 @@
     }
 
     function moviesController($scope, Movies, $modal) {
-        
+        $scope.testCollection = null;
+
         $scope.defaults = {
             property: "title",
             direction: "+"
@@ -127,20 +144,18 @@
                 return theValue;
             }
 
-            $.each($scope.testCollection, function (index, value)
-            {
-                var col = findItemInCollection(value.author, collection);
+            if ($scope.testCollection != null) {
+                $.each($scope.testCollection, function (index, value) {
+                    var col = findItemInCollection(value.author, collection);
 
-                if (col==null)
-                {
-                    collection.push([value.author, 1]);
-                }
-                else
-                {
-                    col[1] = col[1] + 1;
-                }
-            });
-
+                    if (col == null) {
+                        collection.push([value.author, 1]);
+                    }
+                    else {
+                        col[1] = col[1] + 1;
+                    }
+                });
+            }
             // Create the data table.
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Author');
