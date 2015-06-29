@@ -1,0 +1,16 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Add/Edit item</h3>
+</div>
+<div class="modal-body">
+    <input ng-model="currentItem.title" /><br />
+    <input ng-model="currentItem.author" /><br />
+    <select class="form-control">
+        <option ng-repeat="item in categories track by $index" value="{{item.Value}}">
+            {{item.Key}}
+        </option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok(currentItem)">Save</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

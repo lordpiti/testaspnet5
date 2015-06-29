@@ -30,6 +30,7 @@
         google.load('visualization', '1.0', { 'packages': ['corechart'] });
         // Set a callback to run when the Google Visualization API is loaded.
         //google.setOnLoadCallback(drawChart);
+        //jaja
 
 
     }
@@ -68,7 +69,6 @@
 
         Movies.query(function (result) {
             $scope.testCollection = result;
-            //drawChart();
         });
 
         $scope.$watch("testCollection", function (oldValue, newValue) {
@@ -84,12 +84,13 @@
             //This is just to update the grid in the main view
             var indexToDelete = -1;
 
-            $.each($scope.testCollection, function (index, value) {
+            angular.forEach($scope.testCollection, function (value, index) {
                 if (value._id == id || value.id == id) {
                     indexToDelete = index;
                     return;
                 }
             });
+
             if (indexToDelete > -1) {
                 Movies.delete({ id: id });
                 $scope.testCollection.splice(indexToDelete, 1);
@@ -105,7 +106,7 @@
 
             var modalInstance = $modal.open({
                 animation: true,
-                templateUrl: 'myModalContent.html',
+                templateUrl: '/pages/modalContent.html',
                 controller: 'instanceController',
                 resolve: {
                     currentItem: function () {
@@ -134,7 +135,7 @@
             function findItemInCollection(item, collection)
             {
                 var theValue;
-                $.each(collection, function (index, value) {
+                angular.forEach(collection, function (value, index) {
                     if (value[0] ==item)
                     {
                         theValue = value;
@@ -145,7 +146,7 @@
             }
 
             if ($scope.testCollection != null) {
-                $.each($scope.testCollection, function (index, value) {
+                angular.forEach($scope.testCollection, function (value, index) {
                     var col = findItemInCollection(value.author, collection);
 
                     if (col == null) {
@@ -201,7 +202,7 @@
             //This is just to update the grid in the main view
             var indexToUpdate = null;
 
-            $.each($scope.itemList, function (index, value) {
+            angular.forEach($scope.itemList, function (value, index) {
                 if (value.id == user.id || value._id == user._id) {
                     indexToUpdate = index;
                     return;

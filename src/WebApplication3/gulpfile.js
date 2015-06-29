@@ -35,8 +35,16 @@ gulp.task("copy", ["clean","cleanApp"], function () {
     gulp.src(paths.bower + bower[destinationDir])
       .pipe(gulp.dest(paths.lib + destinationDir));
   }
-  console.log("aa");
+  console.log("copy!!");
   gulp.src("Scripts/*.js")
       .pipe(gulp.dest(paths.angularApp));
 
 });
+
+gulp.task('default', function () {
+    gulp.run('copy');
+
+    gulp.watch('Scripts/**', function (event) {
+        gulp.run('copy');
+    });
+})
