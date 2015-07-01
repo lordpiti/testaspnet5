@@ -9,17 +9,13 @@ namespace DAL.Migrations
     {
         public override void Up(MigrationBuilder migration)
         {
-            migration.CreateSequence(
-                name: "DefaultSequence",
-                type: "bigint",
-                startWith: 1L,
-                incrementBy: 10);
             migration.CreateTable(
                 name: "Libro",
                 columns: table => new
                 {
                     Author = table.Column(type: "nvarchar(max)", nullable: true),
-                    Id = table.Column(type: "int", nullable: false),
+                    Id = table.Column(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGeneration", "Identity"),
                     Read = table.Column(type: "bit", nullable: false),
                     Title = table.Column(type: "nvarchar(max)", nullable: true)
                 },
@@ -31,7 +27,6 @@ namespace DAL.Migrations
         
         public override void Down(MigrationBuilder migration)
         {
-            migration.DropSequence("DefaultSequence");
             migration.DropTable("Libro");
         }
     }

@@ -7,6 +7,9 @@
   "Data": {
     "DefaultConnection": {
       "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-WebApplication3-97dff031-a884-4687-b0e2-1bf4c70da5c4;Trusted_Connection=True;MultipleActiveResultSets=true"
+    },
+    "AzureConnection": {
+      "ConnectionString": "Server=tcp:qdijnzq4jx.database.windows.net,1433;Database=aspnet5testpiti_db;User ID=lordpiti@qdijnzq4jx;Password=Kidswast1;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;"
     }
   }
 }

@@ -15,7 +15,7 @@ namespace DAL.Migrations
             get
             {
                 var builder = new BasicModelBuilder()
-                    .Annotation("SqlServer:ValueGeneration", "Sequence");
+                    .Annotation("SqlServer:ValueGeneration", "Identity");
                 
                 builder.Entity("DAL.Models.Libro", b =>
                     {

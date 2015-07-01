@@ -8,11 +8,11 @@ using DAL.Models;
 namespace DAL.Migrations
 {
     [ContextType(typeof(BooksContext))]
-    partial class idmongoadded
+    partial class initialMigration
     {
         public override string Id
         {
-            get { return "20150623212510_idmongoadded"; }
+            get { return "20150701200232_initialMigration"; }
         }
         
         public override string ProductVersion
@@ -25,7 +25,7 @@ namespace DAL.Migrations
             get
             {
                 var builder = new BasicModelBuilder()
-                    .Annotation("SqlServer:ValueGeneration", "Sequence");
+                    .Annotation("SqlServer:ValueGeneration", "Identity");
                 
                 builder.Entity("DAL.Models.Libro", b =>
                     {
@@ -35,12 +35,10 @@ namespace DAL.Migrations
                             .GenerateValueOnAdd()
                             .Annotation("OriginalValueIndex", 1)
                             .Annotation("SqlServer:ValueGeneration", "Default");
-                        b.Property<string>("IdMongo")
-                            .Annotation("OriginalValueIndex", 2);
                         b.Property<bool>("Read")
-                            .Annotation("OriginalValueIndex", 3);
+                            .Annotation("OriginalValueIndex", 2);
                         b.Property<string>("Title")
-                            .Annotation("OriginalValueIndex", 4);
+                            .Annotation("OriginalValueIndex", 3);
                         b.Key("Id");
                     });
                 
