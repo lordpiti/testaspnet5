@@ -29,9 +29,10 @@ gulp.task("copy", ["clean","cleanApp","styles"], function () {
     "hammer.js": "hammer.js/hammer*.{js,map}",
     "jquery": "jquery/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/jquery.validate.js",
-    "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+    "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}"
   }
-
+    //
   for (var destinationDir in bower) {
     gulp.src(paths.bower + bower[destinationDir])
       .pipe(gulp.dest(paths.lib + destinationDir));
@@ -44,7 +45,7 @@ gulp.task("copy", ["clean","cleanApp","styles"], function () {
 
 
 gulp.task('styles', function () {
-    console.log("styles!!");
+    console.log("proccessing sass files to generate css");
     gulp.src('sass/**/*.scss')
         .pipe(sass({
             errLogToConsole: true
