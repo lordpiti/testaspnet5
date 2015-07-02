@@ -30,7 +30,6 @@
         google.load('visualization', '1.0', { 'packages': ['corechart'] });
         // Set a callback to run when the Google Visualization API is loaded.
         //google.setOnLoadCallback(drawChart);
-        //jaja
 
 
     }
@@ -131,7 +130,7 @@
         function drawChart() {
 
             var collection = [];
-
+            
             function findItemInCollection(item, collection)
             {
                 var theValue;
@@ -171,8 +170,11 @@
             };
 
             // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            if (document.getElementById('chart_div')!=null)
+            {
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
         }
     }
 

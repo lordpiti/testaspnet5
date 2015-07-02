@@ -1,0 +1,9 @@
+﻿body {
+    .theTestClass {
+        color: yellow;
+
+        .theTestClassNested {
+            color: red;
+        }
+    }
+}
