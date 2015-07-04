@@ -3,7 +3,7 @@
         <div class="col-md-3">
             <div ng-include="'pages/accordion.html'"></div>
         </div>
-        <div class="col-md-5" ng-bind-html="newsToDisplay">
+        <div class="col-md-5" ng-bind-html="newsToDisplay | to_trusted">
             
         </div>
         <div class="col-md-4">

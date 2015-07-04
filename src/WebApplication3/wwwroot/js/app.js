@@ -5,8 +5,6 @@
 
     var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap','ngRoute']);
 
-   
-
     theApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/book', {
@@ -20,7 +18,13 @@
             });
     }]);
 
-    theApp.controller('moviesController', ['$scope', '$sce','Movies','News', '$modal', moviesController])
+    theApp.filter('to_trusted', ['$sce', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
+
+    theApp.controller('moviesController', ['$scope','Movies','News', '$modal', moviesController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
 
 
@@ -34,10 +38,10 @@
 
     }
 
-    function moviesController($scope, $sce, Movies, News, $modal) {
+    function moviesController($scope, Movies, News, $modal) {
         $scope.testCollection = null,
         $scope.testFeeds = null,
-        $scope.newsToDisplay = $sce.trustAsHtml('Select news');
+        $scope.newsToDisplay = 'Select news';
 
         $scope.defaults = {
             property: "title",
@@ -188,7 +192,7 @@
 
         $scope.displayNewContent = function(index)
         {
-            $scope.newsToDisplay = $sce.trustAsHtml($scope.testFeeds.entries[index].content);
+            $scope.newsToDisplay = $scope.testFeeds.entries[index].content;
         }
     }
 
