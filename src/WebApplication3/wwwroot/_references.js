@@ -20,3 +20,4 @@
 /// <reference path="js/services.js" />
 /// <reference path="js/ui-bootstrap-tpls-0.13.0.min.js" />
 /// <reference path="js/constants.js" />
+/// <reference path="lib/moment/moment.js" />

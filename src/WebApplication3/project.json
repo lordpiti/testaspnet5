@@ -28,8 +28,7 @@
         "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta4",
         "mongocsharpdriver": "1.8.3",
         "DAL": "",
-        "EntityFramework": "7.0.0-beta4",
-        "Angular.UI.Bootstrap": "0.13.0"
+        "EntityFramework": "7.0.0-beta4"
     },
 
     "commands": {

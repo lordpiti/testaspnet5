@@ -20,7 +20,7 @@
             });
     }]);
 
-    theApp.controller('moviesController', ['$scope', 'Movies', '$modal', moviesController])
+    theApp.controller('moviesController', ['$scope', '$sce','Movies','News', '$modal', moviesController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
 
 
@@ -34,8 +34,10 @@
 
     }
 
-    function moviesController($scope, Movies, $modal) {
-        $scope.testCollection = null;
+    function moviesController($scope, $sce, Movies, News, $modal) {
+        $scope.testCollection = null,
+        $scope.testFeeds = null,
+        $scope.newsToDisplay = $sce.trustAsHtml('Select news');
 
         $scope.defaults = {
             property: "title",
@@ -69,6 +71,13 @@
         Movies.query(function (result) {
             $scope.testCollection = result;
         });
+
+        News.fetch({ q: "http://rss.slashdot.org/Slashdot/slashdot", num: 10 }, {}, function (data) {
+            var feed = data.responseData.feed;
+            $scope.testFeeds = feed;
+        });
+
+
 
         $scope.$watch("testCollection", function (oldValue, newValue) {
             drawChart();
@@ -175,6 +184,11 @@
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                 chart.draw(data, options);
             }
+        }
+
+        $scope.displayNewContent = function(index)
+        {
+            $scope.newsToDisplay = $sce.trustAsHtml($scope.testFeeds.entries[index].content);
         }
     }
 

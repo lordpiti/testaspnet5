@@ -15,15 +15,17 @@ var paths = {
   css: "./" + project.webroot + "/css/"
 };
 
+//delete all of the js libraries used, this includes the ones installed with bower
 gulp.task("clean", function (cb) {
     rimraf(paths.lib, cb);
 });
 
+//Delete all of the js files for the angular app
 gulp.task("cleanApp", function (cb) {
     rimraf(paths.angularApp, cb);
 });
 
-gulp.task("copy", ["clean", "cleanApp", "styles", "constants"], function () {
+gulp.task("copy", ["clean", "cleanApp", "styles"], function () {
   var bower = {
     "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
     "bootstrap-touch-carousel": "bootstrap-touch-carousel/dist/**/*.{js,css}",
@@ -31,7 +33,8 @@ gulp.task("copy", ["clean", "cleanApp", "styles", "constants"], function () {
     "jquery": "jquery/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/jquery.validate.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-    "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}"
+    "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}",
+    "moment": "moment/*.{js,map,css,ttf,svg,woff,eot}"
   }
     //
   for (var destinationDir in bower) {
@@ -44,7 +47,7 @@ gulp.task("copy", ["clean", "cleanApp", "styles", "constants"], function () {
 
 });
 
-
+//Proccess sass files
 gulp.task('styles', function () {
     console.log("proccessing sass files to generate css");
     gulp.src('sass/**/*.scss')
@@ -54,6 +57,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest(paths.css));
 });
 
+//Create an angularjs module with constants based on a config file to be used for the REST api url for example
 gulp.task('constants', function () {
     var myConfig = require('./config.json');
     var apiUrl = myConfig.Api[myConfig.AppSettings.apiType];
@@ -67,6 +71,7 @@ gulp.task('constants', function () {
 });
 
 gulp.task('default', function () {
+    gulp.run('constants');
     gulp.run('copy');
 
     gulp.watch('Scripts/**', function (event) {

@@ -1,37 +1,45 @@
 ﻿<div ng-controller="moviesController">
-    <tabset>
-        <tab heading="Books">
-            <button class="btn btn-default" ng-click="open()">Add item</button>
-            <br />
+    <div class="row">
+        <div class="col-md-3">
+            <div ng-include="'pages/accordion.html'"></div>
+        </div>
+        <div class="col-md-5" ng-bind-html="newsToDisplay">
+            
+        </div>
+        <div class="col-md-4">
+            <tabset>
+                <tab heading="Books">
+                    <button class="btn btn-default" ng-click="open()">Add item</button>
+                    <br />
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th ng-click="changeFilter('title')">Title</th>
-                        <th ng-click="changeFilter('author')">Author</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tr ng-repeat="item in (testCollection | orderBy:realFilter()) track by $index">
-                    <td>
-                        {{item.title}}
-                    </td>
-                    <td>
-                        {{item.author}}
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
-                        <button class="btn btn-default" ng-click="open(item)">Edit</button>
-                    </td>
-                </tr>
-            </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th ng-click="changeFilter('title')">Title</th>
+                                <th ng-click="changeFilter('author')">Author</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="item in (testCollection | orderBy:realFilter()) track by $index">
+                            <td>
+                                {{item.title}}
+                            </td>
+                            <td>
+                                {{item.author}}
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
+                                <button class="btn btn-default" ng-click="open(item)">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
 
-            <div id="chart_div"></div>
-        </tab>
-        <tab heading="Other">
-            <div ng-include="'pages/test.html'"></div>
-        </tab>
-    </tabset>
-    
-
+                    <div id="chart_div"></div>
+                </tab>
+                <tab heading="Other">
+                    <div ng-include="'pages/test.html'"></div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
 </div>

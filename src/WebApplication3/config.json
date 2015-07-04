@@ -3,7 +3,7 @@
     "SiteTitle": "ASP.NET 5 Test app",
     "mongoconnection": "mongodb://localhost:27017",
     "database": "bookAPI",
-    "apiType": "NodeJS"
+    "apiType": "WebAPI"
   },
   "Data": {
     "DefaultConnection": {
