@@ -23,6 +23,13 @@
             return $sce.trustAsHtml(text);
         };
     }]);
+    theApp.filter('startFrom', function () {
+        return function (input, start) {
+            start = +start; //parse to int
+            if (input!=null)
+                return input.slice(start);
+        };
+    });
 
     theApp.controller('moviesController', ['$scope','Movies','News', '$modal', moviesController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
@@ -42,6 +49,8 @@
         $scope.testCollection = null,
         $scope.testFeeds = null,
         $scope.newsToDisplay = 'Select news';
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = 5;
 
         $scope.defaults = {
             property: "title",
@@ -80,8 +89,6 @@
             var feed = data.responseData.feed;
             $scope.testFeeds = feed;
         });
-
-
 
         $scope.$watch("testCollection", function (oldValue, newValue) {
             drawChart();
