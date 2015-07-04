@@ -93,7 +93,7 @@ namespace WebApplication3
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             });
 
-            services.AddSingleton<IBookRepository, BookEFRepository>();
+            services.AddSingleton<IBookRepository, BookMongoRepository>();
 
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.

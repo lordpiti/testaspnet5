@@ -3,7 +3,8 @@
 var gulp = require("gulp"),
   rimraf = require("rimraf"),
   fs = require("fs"),
-  sass = require("gulp-sass");
+  sass = require("gulp-sass"),
+  ngConstant = require("gulp-ng-constant");
 
 eval("var project = " + fs.readFileSync("./project.json"));
 
@@ -22,7 +23,7 @@ gulp.task("cleanApp", function (cb) {
     rimraf(paths.angularApp, cb);
 });
 
-gulp.task("copy", ["clean","cleanApp","styles"], function () {
+gulp.task("copy", ["clean", "cleanApp", "styles", "constants"], function () {
   var bower = {
     "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
     "bootstrap-touch-carousel": "bootstrap-touch-carousel/dist/**/*.{js,css}",
@@ -51,6 +52,18 @@ gulp.task('styles', function () {
             errLogToConsole: true
         }))
         .pipe(gulp.dest(paths.css));
+});
+
+gulp.task('constants', function () {
+    var myConfig = require('./config.json');
+    var apiUrl = myConfig.Api[myConfig.AppSettings.apiType];
+
+    var envConfig = { apiUrl: apiUrl };
+    return ngConstant({
+        name: 'environments.config',
+        constants: envConfig,
+        stream: true
+    }).pipe(gulp.dest('Scripts'));
 });
 
 gulp.task('default', function () {

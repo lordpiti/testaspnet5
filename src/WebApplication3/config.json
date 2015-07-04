@@ -1,8 +1,9 @@
 {
   "AppSettings": {
-    "SiteTitle": "WebApplication3",
+    "SiteTitle": "ASP.NET 5 Test app",
     "mongoconnection": "mongodb://localhost:27017",
-    "database":  "bookAPI"
+    "database": "bookAPI",
+    "apiType": "NodeJS"
   },
   "Data": {
     "DefaultConnection": {
@@ -11,5 +12,10 @@
     "AzureConnection": {
       "ConnectionString": "Server=tcp:qdijnzq4jx.database.windows.net,1433;Database=aspnet5testpiti_db;User ID=lordpiti@qdijnzq4jx;Password=Kidswast1;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;"
     }
+  },
+  "Api": {
+    "WebAPI": "",
+    "NodeJS": "http://nodepititest.azurewebsites.net",
+    "NodeJSLocal": "http://localhost:3000"
   }
 }
