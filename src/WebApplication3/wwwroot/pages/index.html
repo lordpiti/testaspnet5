@@ -15,8 +15,23 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th ng-click="changeFilter('title')">Title</th>
-                                <th ng-click="changeFilter('author')">Author</th>
+                                <th ng-click="changeFilter('title')" class="{{filter.property=='title'?'danger':'warning'}}">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            Title
+                                        </div>                                       
+                                        <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
+                                    </div>
+                                    
+                                </th>
+                                <th ng-click="changeFilter('author')" class="{{filter.property=='author'?'danger':'warning'}}">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            Author
+                                        </div>
+                                        <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='author'"></span>
+                                    </div>
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
