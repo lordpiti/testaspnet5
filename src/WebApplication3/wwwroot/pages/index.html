@@ -1,4 +1,6 @@
 ﻿<div ng-controller="moviesController">
+    <!--<test-directive></test-directive>
+    <dropdown-directive items-list="cosillas"></dropdown-directive>-->
     <div class="row">
         <div class="col-md-3">
             <div ng-include="'pages/accordion.html'"></div>
@@ -35,18 +37,25 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tr ng-repeat="item in (testCollection | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
-                            <td>
-                                {{item.title}}
-                            </td>
-                            <td>
-                                {{item.author}}
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
-                                <button class="btn btn-default" ng-click="open(item)">Edit</button>
-                            </td>
-                        </tr>
+                        <tbody ng-repeat="item in (testCollection | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
+                            <tr>
+                                <td>
+                                    {{item.title}}
+                                </td>
+                                <td>
+                                    {{item.author}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
+                                    <button class="btn btn-default" ng-click="open(item)">Edit</button>
+                                </td>
+                            </tr>
+                            
+                            <tr ng-show="false">
+                                <td colspan="3">vaya</td>
+                            </tr>
+                        </tbody>
+                        
                     </table>
 
                     <pagination total-items="testCollection.length" items-per-page="itemsPerPage" ng-model="currentPage"></pagination>

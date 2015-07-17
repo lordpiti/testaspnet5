@@ -3,7 +3,7 @@
 
     loadGoogleCharts();
 
-    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap','ngRoute']);
+    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap','ngRoute','customDirectives','customFilters']);
 
     theApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -17,19 +17,6 @@
                 redirectTo: '/'
             });
     }]);
-
-    theApp.filter('to_trusted', ['$sce', function ($sce) {
-        return function (text) {
-            return $sce.trustAsHtml(text);
-        };
-    }]);
-    theApp.filter('startFrom', function () {
-        return function (input, start) {
-            start = +start; //parse to int
-            if (input!=null)
-                return input.slice(start);
-        };
-    });
 
     theApp.controller('moviesController', ['$scope','Movies','News', '$modal', moviesController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
