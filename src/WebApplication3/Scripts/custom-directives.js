@@ -10,5 +10,5 @@
         controller: function ($scope) {
 
         }
-    }
+    } 
 });
