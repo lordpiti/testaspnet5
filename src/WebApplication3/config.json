@@ -1,9 +1,12 @@
 {
   "AppSettings": {
     "SiteTitle": "ASP.NET 5 Test app",
-    "mongoconnection": "mongodb://localhost:27017",
+    "mongoConnection": "mongodb://localhost:27017/bookAPI",
+    "mongoConnectionAzure": "mongodb://lordpiti:Kidswast1@ds036648.mongolab.com:36648/MongoLab-e",
     "database": "bookAPI",
-    "apiType": "WebAPI"
+    "databaseAzure": "MongoLab-e",
+    "apiType": "WebAPI",
+    "useAzureMongoDb":  "true"
   },
   "Data": {
     "DefaultConnection": {

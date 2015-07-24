@@ -9,6 +9,8 @@ namespace DAL.Models
 
         public DbSet<Libro> Libros { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public IConfiguration Config { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

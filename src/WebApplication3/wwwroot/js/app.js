@@ -18,8 +18,8 @@
             });
     }]);
 
-    theApp.controller('moviesController', ['$scope','Movies','News', '$modal', moviesController])
-    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', instanceController]);
+    theApp.controller('moviesController', ['$scope','Movies','Categories','News', '$modal', moviesController])
+    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList','categories', instanceController]);
 
 
     function loadGoogleCharts()
@@ -32,12 +32,19 @@
 
     }
 
-    function moviesController($scope, Movies, News, $modal) {
+    function moviesController($scope, Movies, Categories, News, $modal) {
         $scope.testCollection = null,
         $scope.testFeeds = null,
         $scope.newsToDisplay = 'Select news';
         $scope.currentPage = 1;
         $scope.itemsPerPage = 5;
+        $scope.categories = [];
+
+        Categories.query(function (result) {
+            angular.forEach(result, function (value, index) {
+                $scope.categories.push({ Key: value.name, Value: value.id });
+            });
+        });
 
         $scope.defaults = {
             property: "title",
@@ -120,6 +127,9 @@
                     },
                     itemList: function () {
                         return $scope.testCollection;
+                    },
+                    categories: function () {
+                        return $scope.categories;
                     }
                 }
             });
@@ -190,16 +200,11 @@
         }
     }
 
-    function instanceController($scope, $modalInstance, currentItem, itemList) {
+    function instanceController($scope, $modalInstance, currentItem, itemList, categories) {
 
         $scope.currentItem = angular.copy(currentItem);
         $scope.itemList = itemList;
-
-        $scope.categories = [
-            { Key: "Sci-fi", Value: 1 },
-            { Key: "Comedy", Value: 2 },
-            { Key: "Terror", Value: 3 }
-        ];
+        $scope.categories = categories;
 
         $scope.editBook = function (item) {
             //var id = $scope.testCollection[index]._id;

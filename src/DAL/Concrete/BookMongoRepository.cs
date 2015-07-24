@@ -1,5 +1,7 @@
 ﻿using DAL.Interface;
 using DAL.Models;
+using DAL.Properties;
+using Microsoft.Framework.OptionsModel;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using System;
@@ -16,11 +18,30 @@ namespace DAL.Concrete
         private MongoDatabase _database;
 
 
-        public BookMongoRepository()
+        public BookMongoRepository(IOptions<AppSettings> settings)
         {
-            _client = new MongoClient("mongodb://localhost:27017");
+            var serverConnectionString = settings.Options.UseAzureMongoDb == "true" ?
+                settings.Options.MongoConnectionAzure : settings.Options.MongoConnection;
+
+            var databaseName = settings.Options.UseAzureMongoDb == "true" ?
+                settings.Options.DatabaseAzure : settings.Options.Database;
+
+            #region added only for Azure
+
+            //for some reason DI doesn't look to work properly on Azure when loading the config values on the Appsettings class
+            //thats why the connection strings for the mongodb db are hardcoded here. Locally it's ok
+            if (serverConnectionString==null || databaseName==null)
+            {
+                serverConnectionString = "mongodb://lordpiti:Kidswast1@ds036648.mongolab.com:36648/MongoLab-e";
+                databaseName = "MongoLab-e";
+            }
+
+            #endregion
+
+
+            _client = new MongoClient(serverConnectionString);
             _server = _client.GetServer();
-            _database = _server.GetDatabase("bookAPI");
+            _database = _server.GetDatabase(databaseName);
         }
 
         public List<GenericBook> GetBooks()
@@ -62,6 +83,14 @@ namespace DAL.Concrete
             book = AutoMapper.Mapper.Map<GenericBook>(bookMongo);
 
             return book;
+        }
+
+        public IEnumerable<GenericCategory> GetCategories()
+        {
+            var categories = _database.GetCollection<CategoryMongo>("categories").FindAll();
+            var destinationList = AutoMapper.Mapper.Map<List<GenericCategory>>(categories);
+
+            return destinationList;
         }
     }
 }

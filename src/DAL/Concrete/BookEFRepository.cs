@@ -19,7 +19,7 @@ namespace DAL.Concrete
 
         public List<GenericBook> GetBooks()
         {
-            var libros = _context.Libros;
+            var libros = _context.Libros.ToList();
 
             var destinationList = AutoMapper.Mapper.Map<List<GenericBook>>(libros);
 
@@ -55,6 +55,14 @@ namespace DAL.Concrete
             _context.SaveChanges();
 
             return book;
+        }
+
+        public IEnumerable<GenericCategory> GetCategories()
+        {
+            var categories= _context.Categories.ToList();
+            var destinationList = AutoMapper.Mapper.Map<List<GenericCategory>>(categories);
+
+            return destinationList;
         }
     }
 }

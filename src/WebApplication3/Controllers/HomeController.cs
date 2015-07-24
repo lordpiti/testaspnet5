@@ -74,5 +74,12 @@ namespace WebApplication3.Controllers
         {          
             return _bookRepository.Update(id, book);
         }
+
+        [HttpGet]
+        [Route("/api/books/categories")]
+        public IEnumerable<GenericCategory> GetCategories()
+        {
+            return _bookRepository.GetCategories();
+        }
     }
 }

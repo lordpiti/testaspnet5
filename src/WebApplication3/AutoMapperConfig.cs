@@ -25,6 +25,14 @@ namespace WebApplication3
             AutoMapper.Mapper.CreateMap<GenericBook, Libro>()
                 .ForMember(dest => dest.Id,
                            opts => opts.MapFrom(src => Convert.ToInt32(src.Id)));
+
+            AutoMapper.Mapper.CreateMap<CategoryMongo, GenericCategory>()
+                .ForMember(dest => dest.Id,
+                           opts => opts.MapFrom(src => src.Id.ToString()));
+
+            AutoMapper.Mapper.CreateMap<Category, GenericCategory>()
+                .ForMember(dest => dest.Id,
+                           opts => opts.MapFrom(src => src.Id.ToString()));
         }
     }
 }

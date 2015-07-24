@@ -8,9 +8,19 @@ using DAL.Models;
 namespace DAL.Migrations
 {
     [ContextType(typeof(BooksContext))]
-    partial class BooksContextModelSnapshot : ModelSnapshot
+    partial class addCategory
     {
-        public override IModel Model
+        public override string Id
+        {
+            get { return "20150718115109_addCategory"; }
+        }
+        
+        public override string ProductVersion
+        {
+            get { return "7.0.0-beta4-12943"; }
+        }
+        
+        public override IModel Target
         {
             get
             {

@@ -14,5 +14,7 @@ namespace DAL.Interface
         GenericBook Create(GenericBook book);
 
         GenericBook Update(string id, GenericBook book);
+
+        IEnumerable<GenericCategory> GetCategories();
     }
 }

@@ -26,6 +26,7 @@ using Newtonsoft.Json.Serialization;
 using DAL.Interface;
 using DAL.Concrete;
 using DAL.Models;
+using DAL.Properties;
 
 namespace WebApplication3
 {
@@ -93,7 +94,9 @@ namespace WebApplication3
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             });
 
-            services.AddSingleton<IBookRepository, BookEFRepository>();
+            //Add a singleton is not a good idea in this case because the same context instance would be shared by many methods in a repository/controller
+            //and the connection could be not properly closed
+            services.AddTransient<IBookRepository, BookEFRepository>();
 
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
@@ -111,7 +114,7 @@ namespace WebApplication3
             // Add the following to the request pipeline only in development environment.
             if (env.IsEnvironment("Development"))
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseErrorPage(ErrorPageOptions.ShowAll);
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
