@@ -1,71 +1,79 @@
 ﻿<div ng-controller="moviesController">
-    <!--<test-directive></test-directive>
-    <dropdown-directive items-list="cosillas"></dropdown-directive>-->
+
+    <div ng-include="'pages/topMenu.html'"></div>
+
     <div class="row">
-        <div class="col-md-3">
-            <div ng-include="'pages/accordion.html'"></div>
-        </div>
-        <div class="col-md-5" ng-bind-html="newsToDisplay | to_trusted">
-            
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <tabset>
                 <tab heading="Books">
-                    <button class="btn btn-default" ng-click="open()">Add item</button>
-                    <br />
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th ng-click="changeFilter('title')" class="{{filter.property=='title'?'danger':'warning'}}">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            Title
-                                        </div>                                       
-                                        <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
-                                    </div>
-                                    
-                                </th>
-                                <th ng-click="changeFilter('author')" class="{{filter.property=='author'?'danger':'warning'}}">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            Author
-                                        </div>
-                                        <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='author'"></span>
-                                    </div>
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody ng-repeat="item in (testCollection | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
-                            <tr>
-                                <td>
-                                    {{item.title}}
-                                </td>
-                                <td>
-                                    {{item.author}}
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
-                                    <button class="btn btn-default" ng-click="open(item)">Edit</button>
-                                </td>
-                            </tr>
-                            
-                            <tr ng-show="false">
-                                <td colspan="3">vaya</td>
-                            </tr>
-                        </tbody>
-                        
-                    </table>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <button class="btn btn-default" ng-click="open()">Add item</button>
+                            <br />
 
-                    <pagination total-items="testCollection.length" items-per-page="itemsPerPage" ng-model="currentPage"></pagination>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th ng-click="changeFilter('title')" class="{{filter.property=='title'?'danger':'warning'}}">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    Title
+                                                </div>
+                                                <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
+                                            </div>
 
-                    <div id="chart_div"></div>
+                                        </th>
+                                        <th ng-click="changeFilter('author')" class="{{filter.property=='author'?'danger':'warning'}}">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    Author
+                                                </div>
+                                                <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='author'"></span>
+                                            </div>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="item in (testCollection | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
+                                    <tr>
+                                        <td>
+                                            {{item.title}}
+                                        </td>
+                                        <td>
+                                            {{item.author}}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" ng-click="deleteBook(item)">Delete</button>
+                                            <button class="btn btn-default" ng-click="open(item)">Edit</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-show="false">
+                                        <td colspan="3">vaya</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                            <pagination total-items="testCollection.length" items-per-page="itemsPerPage" ng-model="currentPage"></pagination>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="chart_div"></div>
+                        </div>
+                    </div>
+
+
+
+                    
+                    
                 </tab>
                 <tab heading="Other">
-                    <div ng-include="'pages/test.html'"></div>
+                    Empty yet
+                    <!--<div ng-include="'pages/test.html'"></div>-->
                 </tab>
             </tabset>
         </div>
     </div>
+
 </div>

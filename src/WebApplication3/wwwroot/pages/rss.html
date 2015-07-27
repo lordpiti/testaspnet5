@@ -1,0 +1,23 @@
+﻿<div ng-controller="rssController">
+
+    <div ng-include="'pages/topMenu.html'"></div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div ng-include="'pages/accordion.html'"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body" ng-bind-html="newsToDisplay | to_trusted">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="theTestClass">
+    THE TEST
+    <div class="theTestClassNested">
+        otro test
+    </div>
+</div>
