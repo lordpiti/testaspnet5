@@ -6,11 +6,24 @@
         <div class="col-md-12">
             <tabset>
                 <tab heading="Books">
-
+                    <br />
                     <div class="row">
                         <div class="col-md-7">
-                            <button class="btn btn-default" ng-click="open()">Add item</button>
-                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-default" ng-click="open()">Add item</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <form>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                                <input type="text" class="form-control" placeholder="Search by title" ng-model="searchBook">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
                             <table class="table table-bordered">
                                 <thead>
@@ -22,7 +35,6 @@
                                                 </div>
                                                 <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
                                             </div>
-
                                         </th>
                                         <th ng-click="changeFilter('author')" class="{{filter.property=='author'?'danger':'warning'}}">
                                             <div class="row">
@@ -35,7 +47,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody ng-repeat="item in (testCollection | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
+                                <tbody ng-repeat="item in (testCollection | filter:{title:searchBook} | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
                                     <tr>
                                         <td>
                                             {{item.title}}

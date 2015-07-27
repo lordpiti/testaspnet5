@@ -6,6 +6,8 @@
 
     $scope.currentStep = "Books";
 
+    $scope.searchBook = "";
+
     Categories.query(function (result) {
         angular.forEach(result, function (value, index) {
             $scope.categories.push({ Key: value.name, Value: value.id });

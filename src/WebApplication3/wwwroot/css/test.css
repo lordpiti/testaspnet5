@@ -2,9 +2,3 @@ body .theTestClass {
   color: yellow; }
   body .theTestClass .theTestClassNested {
     color: red; }
-
-body .normalText {
-  background-color: gray; }
-
-body .highLightedText {
-  background-color: yellow; }
