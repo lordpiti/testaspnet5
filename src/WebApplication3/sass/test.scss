@@ -3,7 +3,9 @@
         color: yellow;
 
         .theTestClassNested {
-            color: red;
+            color: yellow;
         }
     }
 }
+
+@import '_partialTest';

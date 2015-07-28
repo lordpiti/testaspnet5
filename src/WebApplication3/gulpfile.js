@@ -20,12 +20,17 @@ gulp.task("clean", function (cb) {
     rimraf(paths.lib, cb);
 });
 
+//delete all of the js libraries used, this includes the ones installed with bower
+gulp.task("cleanCss", function (cb) {
+    rimraf(paths.css, cb);
+});
+
 //Delete all of the js files for the angular app
 gulp.task("cleanApp", function (cb) {
     rimraf(paths.angularApp, cb);
 });
 
-gulp.task("copy", ["clean", "cleanApp", "styles"], function () {
+gulp.task("copy", ["clean", "cleanApp"], function () {
   var bower = {
     "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
     "bootstrap-touch-carousel": "bootstrap-touch-carousel/dist/**/*.{js,css}",
@@ -48,7 +53,7 @@ gulp.task("copy", ["clean", "cleanApp", "styles"], function () {
 });
 
 //Proccess sass files
-gulp.task('styles', function () {
+gulp.task('styles',['cleanCss'], function () {
     console.log("proccessing sass files to generate css");
     gulp.src('sass/**/*.scss')
         .pipe(sass({
@@ -73,8 +78,13 @@ gulp.task('constants', function () {
 gulp.task('default', function () {
     gulp.run('constants');
     gulp.run('copy');
+    gulp.run('styles');
 
     gulp.watch('Scripts/**', function (event) {
         gulp.run('copy');
+    });
+
+    gulp.watch('sass/**', function (event) {
+        gulp.run('styles');
     });
 })
