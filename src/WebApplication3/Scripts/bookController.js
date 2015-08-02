@@ -1,4 +1,4 @@
-﻿function moviesController($scope, $location, Movies, Categories, News, $modal,growl) {
+﻿function booksController($scope, $location, Movies, Categories, News, $modal,growl) {
     $scope.testCollection = null,
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;

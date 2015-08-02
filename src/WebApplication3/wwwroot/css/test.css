@@ -3,5 +3,11 @@ body .theTestClass {
   body .theTestClass .theTestClassNested {
     color: yellow; }
 
+body .tableCrud .titleColumn {
+  width: 40%; }
+
+body .tableCrud .authorColumn {
+  width: 35%; }
+
 .otraMas {
   color: purple; }

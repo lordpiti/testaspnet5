@@ -20,7 +20,7 @@
         growlProvider.globalPosition('bottom-right');
     }]);
 
-theApp.controller('moviesController', ['$scope', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', moviesController])
+theApp.controller('booksController', ['$scope', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', booksController])
     .controller('rssController', ['$scope', '$location', 'News', rssController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', 'categories', 'growl', instanceController]);
 

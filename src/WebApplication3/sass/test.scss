@@ -6,6 +6,15 @@
             color: yellow;
         }
     }
+
+    .tableCrud {
+        .titleColumn {
+            width:40%
+        }
+        .authorColumn {
+            width:35%
+        }
+    }
 }
 
 @import '_partialTest';

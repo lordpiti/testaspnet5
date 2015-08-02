@@ -1,4 +1,4 @@
-﻿<div ng-controller="moviesController">
+﻿<div ng-controller="booksController">
 
     <div ng-include="'pages/topMenu.html'"></div>
 
@@ -25,23 +25,23 @@
                                 </div>
                             </div>
 
-                            <table class="table table-bordered">
+                            <table class="table table-bordered tableCrud">
                                 <thead>
                                     <tr>
                                         <th ng-click="changeFilter('title')" class="{{filter.property=='title'?'danger':'warning'}}">
                                             <div class="row">
-                                                <div class="col-md-7">
+                                                <div class="col-md-10">
                                                     Title
                                                 </div>
-                                                <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
+                                                <span class="col-md-2 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='title'"></span>
                                             </div>
                                         </th>
                                         <th ng-click="changeFilter('author')" class="{{filter.property=='author'?'danger':'warning'}}">
                                             <div class="row">
-                                                <div class="col-md-7">
+                                                <div class="col-md-10">
                                                     Author
                                                 </div>
-                                                <span class="col-md-5 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='author'"></span>
+                                                <span class="col-md-2 glyphicon {{filter.direction=='+'?'glyphicon-chevron-up':'glyphicon-chevron-down'}}" ng-show="filter.property=='author'"></span>
                                             </div>
                                         </th>
                                         <th></th>
@@ -49,10 +49,10 @@
                                 </thead>
                                 <tbody ng-repeat="item in (testCollection | filter:{title:searchBook} | orderBy:realFilter() | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage) track by $index">
                                     <tr>
-                                        <td>
+                                        <td class="titleColumn">
                                             {{item.title}}
                                         </td>
-                                        <td>
+                                        <td class="authorColumn">
                                             {{item.author}}
                                         </td>
                                         <td>
