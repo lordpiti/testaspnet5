@@ -39,7 +39,8 @@ gulp.task("copy", ["clean", "cleanApp"], function () {
     "jquery-validation": "jquery-validation/jquery.validate.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
     "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}",
-    "moment": "moment/*.{js,map,css,ttf,svg,woff,eot}"
+    "moment": "moment/*.{js,map,css,ttf,svg,woff,eot}",
+    "angular-growl-v2": "angular-growl-v2/build/*.{js,map,css,ttf,svg,woff,eot}"
   }
     //
   for (var destinationDir in bower) {
@@ -75,10 +76,7 @@ gulp.task('constants', function () {
     }).pipe(gulp.dest('Scripts'));
 });
 
-gulp.task('default', function () {
-    gulp.run('constants');
-    gulp.run('copy');
-    gulp.run('styles');
+gulp.task('default',['constants','copy','styles'], function () {
 
     gulp.watch('Scripts/**', function (event) {
         gulp.run('copy');

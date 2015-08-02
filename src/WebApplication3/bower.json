@@ -9,6 +9,10 @@
     "hammer.js": "2.0.4",
     "bootstrap-touch-carousel": "0.8.0",
     "angular-bootstrap": "^0.13.0",
-    "moment": "^2.10.3"
+    "moment": "^2.10.3",
+    "angular-growl-v2": "^0.7.5"
+  },
+  "resolutions": {
+    "angular": ">=1.2.1"
   }
 }

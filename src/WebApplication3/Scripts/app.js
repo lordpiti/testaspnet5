@@ -1,9 +1,9 @@
 ﻿
     loadGoogleCharts();
 
-    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap','ngRoute','customDirectives','customFilters']);
+    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap', 'ngRoute', 'customDirectives', 'customFilters', 'angular-growl']);
 
-    theApp.config(['$routeProvider', function ($routeProvider) {
+    theApp.config(['$routeProvider', function ($routeProvider) { 
         $routeProvider
             .when('/rss', {
                 templateUrl: '/pages/rss.html'
@@ -16,9 +16,13 @@
             });
     }]);
 
-theApp.controller('moviesController', ['$scope', '$location', 'Movies', 'Categories', 'News', '$modal', moviesController])
+    theApp.config(['growlProvider', function (growlProvider) {
+        growlProvider.globalPosition('bottom-right');
+    }]);
+
+theApp.controller('moviesController', ['$scope', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', moviesController])
     .controller('rssController', ['$scope', '$location', 'News', rssController])
-    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList','categories', instanceController]);
+    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', 'categories', 'growl', instanceController]);
 
 
     function loadGoogleCharts()

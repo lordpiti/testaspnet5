@@ -1,4 +1,4 @@
-﻿function moviesController($scope, $location, Movies, Categories, News, $modal) {
+﻿function moviesController($scope, $location, Movies, Categories, News, $modal,growl) {
     $scope.testCollection = null,
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
@@ -71,10 +71,13 @@
             Movies.delete({ id: id });
             $scope.testCollection.splice(indexToDelete, 1);
         }
+
+        //Display notification
+        growl.success("Item was successfully deleted");
     }
 
     $scope.open = function (currentItem) {
-
+        
         if (currentItem == null) {
             currentItem = new Movies();
         }

@@ -1,4 +1,4 @@
-﻿function instanceController($scope, $modalInstance, currentItem, itemList, categories) {
+﻿function instanceController($scope, $modalInstance, currentItem, itemList, categories, growl) {
 
     $scope.currentItem = angular.copy(currentItem);
     $scope.itemList = itemList;
@@ -26,12 +26,16 @@
             }
         });
         $scope.itemList[indexToUpdate] = user;
+
+        //Display notification
+        growl.success("Item was successfully updated");
     }
 
     $scope.addBook = function (item) {
         item.$save();
         //This is just to update the grid in the main view
         $scope.itemList.push(item);
+        growl.success("Item was successfully added");
     }
 
     $scope.ok = function (book) {
