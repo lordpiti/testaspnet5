@@ -173,8 +173,14 @@ function booksController($scope,$http, $location, Movies, Categories, News, $mod
     angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
      
     $scope.uploadImage = function ()
-    {
-        $http.post("/api/books/postImg", '"' + $scope.myCroppedImage + '"')
+    {      
+        var dataToPost = {
+            bytes: $scope.myCroppedImage,
+            fileName: document.querySelector('#fileInput').files[0].name
+        };
+
+        //$http.post("/api/books/postImg", '"' + $scope.myCroppedImage + '"')
+        $http.post("/api/books/postImg", dataToPost)
             .success(function (response) {
                 growl.success("Image successfully uploaded");
             });

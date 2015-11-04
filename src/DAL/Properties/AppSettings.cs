@@ -13,5 +13,6 @@ namespace DAL.Properties
         public string MongoConnectionAzure { get; set; }
         public string DatabaseAzure { get; set; }
         public string UseAzureMongoDb { get; set; }
+        public string StorageKey { get; set; }
     }
 }

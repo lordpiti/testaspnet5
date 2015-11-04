@@ -29,7 +29,8 @@
         "mongocsharpdriver": "1.8.3",
         "DAL": "",
         "EntityFramework": "7.0.0-beta4",
-        "System.IO": "4.0.10"
+        "System.IO": "4.0.10",
+        "WindowsAzure.Storage": "6.1.0"
     },
 
     "commands": {

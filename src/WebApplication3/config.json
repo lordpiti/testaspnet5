@@ -6,7 +6,8 @@
     "database": "bookAPI",
     "databaseAzure": "MongoLab-e",
     "apiType": "WebAPI",
-    "useAzureMongoDb":  "true"
+    "useAzureMongoDb": "true",
+    "storageKey": "DefaultEndpointsProtocol=https;AccountName=pititest;AccountKey=UIAjevML+igZ7ldWewh0VrVsi2kWUetFPY9qHdvmi3J1Xjo1rb3QzNSc3zknBK+melgoIEshEx5XG7DLt1Vb/A=="
   },
   "Data": {
     "DefaultConnection": {

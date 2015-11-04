@@ -12,6 +12,13 @@ using DAL.Concrete;
 using Microsoft.AspNet.Http;
 using System.IO;
 using Microsoft.Framework.Runtime;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.OptionsModel;
+using DAL.Properties;
 
 namespace WebApplication3.Controllers
 {
@@ -19,11 +26,23 @@ namespace WebApplication3.Controllers
     {
         private IBookRepository _bookRepository;
         private readonly IApplicationEnvironment _appEnvironment;
+        private readonly CloudBlobClient _cloudStorageClient;
 
-        public HomeController(IBookRepository bookRepository, IApplicationEnvironment applicationEnvironment)
+        public HomeController(IBookRepository bookRepository,
+            IApplicationEnvironment applicationEnvironment, IOptions<AppSettings> settings)
         {
             _bookRepository = bookRepository;
             _appEnvironment = applicationEnvironment;
+
+            //for some reason DI doesn't look to work properly on Azure when loading the config values on the Appsettings class
+            //thats why the connection strings for the mongodb db are hardcoded here. Locally it's ok
+            //This is only for azure
+            var cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=pititest;AccountKey=UIAjevML+igZ7ldWewh0VrVsi2kWUetFPY9qHdvmi3J1Xjo1rb3QzNSc3zknBK+melgoIEshEx5XG7DLt1Vb/A==");
+
+            
+            //var cloudStorageAccount = CloudStorageAccount.Parse(settings.Options.StorageKey);
+
+            _cloudStorageClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
         public IActionResult Index()
@@ -76,7 +95,7 @@ namespace WebApplication3.Controllers
         [HttpPut]
         [Route("/api/books/{id}")]
         public GenericBook UpdateBook(string id, [FromBody]GenericBook book)
-        {          
+        {
             return _bookRepository.Update(id, book);
         }
 
@@ -90,14 +109,41 @@ namespace WebApplication3.Controllers
         [HttpPost]
         [AcceptVerbs("GET", "POST")]
         [Route("/api/books/postImg")]
-        public bool PostImg([FromBody] string imageDataURL)
+        public bool PostImg([FromBody] ImageInfo postData)
         {
-            string base64 = imageDataURL.Substring(imageDataURL.IndexOf(',') + 1);
+            string base64 = postData.bytes.Substring(postData.bytes.IndexOf(',') + 1);
             byte[] data = Convert.FromBase64String(base64);
+
+            var container = _cloudStorageClient.GetContainerReference("mycontainer");
+
+            // Create the container if it doesn't already exist.
+            container.CreateIfNotExists();
+
+            container.SetPermissions(
+                new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Blob
+                });
+
+            var blobName = postData.fileName;
+
+            // Retrieve reference to a blob with an specified name
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName);
+            //TODO: if exists, then create another one
+            //blockBlob.Exists();
+            Stream fileStream = new MemoryStream(data);
+            blockBlob.UploadFromStream(fileStream);
 
             //System.IO.File.WriteAllBytes("c:\\test\\jaja.png", data);
 
             return true;
         }
+    }
+
+    public class ImageInfo
+    {
+        public string bytes { get; set; }
+
+        public string fileName { get; set; }
     }
 }
