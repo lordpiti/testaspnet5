@@ -1,4 +1,5 @@
-﻿<select class="form-control">
+﻿<div id="divTest" ng-transclude></div>
+<select class="form-control" ng-model="propertyToBind">
     <option ng-repeat="item in itemsList track by $index" value="{{item.Value}}">
         {{item.Key}}
     </option>

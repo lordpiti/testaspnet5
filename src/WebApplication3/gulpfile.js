@@ -40,7 +40,8 @@ gulp.task("copy", ["clean", "cleanApp"], function () {
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
     "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}",
     "moment": "moment/*.{js,map,css,ttf,svg,woff,eot}",
-    "angular-growl-v2": "angular-growl-v2/build/*.{js,map,css,ttf,svg,woff,eot}"
+    "angular-growl-v2": "angular-growl-v2/build/*.{js,map,css,ttf,svg,woff,eot}",
+    "ngImgCrop": "ngImgCrop/compile/minified/*.{js,map,css,ttf,svg,woff,eot}"
   }
     //
   for (var destinationDir in bower) {

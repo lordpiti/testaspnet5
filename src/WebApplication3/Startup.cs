@@ -61,7 +61,7 @@ namespace WebApplication3
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<BooksContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+                    options.UseSqlServer(Configuration["Data:AzureConnection:ConnectionString"]));
 
             // Add Identity services to the services container.
             services.AddIdentity<ApplicationUser, IdentityRole>()

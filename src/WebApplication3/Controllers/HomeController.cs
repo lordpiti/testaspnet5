@@ -9,16 +9,21 @@ using MongoDB.Driver.Builders;
 using DAL.Models;
 using DAL.Interface;
 using DAL.Concrete;
+using Microsoft.AspNet.Http;
+using System.IO;
+using Microsoft.Framework.Runtime;
 
 namespace WebApplication3.Controllers
 {
     public class HomeController : Controller
     {
         private IBookRepository _bookRepository;
+        private readonly IApplicationEnvironment _appEnvironment;
 
-        public HomeController(IBookRepository bookRepository)
+        public HomeController(IBookRepository bookRepository, IApplicationEnvironment applicationEnvironment)
         {
             _bookRepository = bookRepository;
+            _appEnvironment = applicationEnvironment;
         }
 
         public IActionResult Index()
@@ -80,6 +85,19 @@ namespace WebApplication3.Controllers
         public IEnumerable<GenericCategory> GetCategories()
         {
             return _bookRepository.GetCategories();
+        }
+
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        [Route("/api/books/postImg")]
+        public bool PostImg([FromBody] string imageDataURL)
+        {
+            string base64 = imageDataURL.Substring(imageDataURL.IndexOf(',') + 1);
+            byte[] data = Convert.FromBase64String(base64);
+
+            //System.IO.File.WriteAllBytes("c:\\test\\jaja.png", data);
+
+            return true;
         }
     }
 }

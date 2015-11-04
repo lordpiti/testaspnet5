@@ -1,7 +1,8 @@
 ﻿function instanceController($scope, $modalInstance, currentItem, itemList, categories, growl) {
 
     $scope.currentItem = angular.copy(currentItem);
-    $scope.itemList = itemList;
+    $scope.currentItem.categoryId = 1;
+    $scope.itemList = itemList; 
     $scope.categories = categories;
 
     $scope.editBook = function (item) {

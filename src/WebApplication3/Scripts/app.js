@@ -1,7 +1,7 @@
 ﻿
     loadGoogleCharts();
 
-    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap', 'ngRoute', 'customDirectives', 'customFilters', 'angular-growl']);
+    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap', 'ngRoute', 'customDirectives', 'customFilters', 'angular-growl', 'ngImgCrop']);
 
     theApp.config(['$routeProvider', function ($routeProvider) { 
         $routeProvider
@@ -20,7 +20,7 @@
         growlProvider.globalPosition('bottom-right');
     }]);
 
-theApp.controller('booksController', ['$scope', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', booksController])
+theApp.controller('booksController', ['$scope', '$http', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', booksController])
     .controller('rssController', ['$scope', '$location', 'News', rssController])
     .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', 'categories', 'growl', instanceController]);
 

@@ -12,7 +12,7 @@
             <input ng-model="currentItem.author" required class="form-control col-md-5" />
         </div>
 
-        <dropdown-directive items-list="categories"></dropdown-directive>
+        <dropdown-directive items-list="categories" property-to-bind="currentItem.categoryId">Current item is {{currentItem.author}}</dropdown-directive>
 </form>
 </div>
 <div class="modal-footer">

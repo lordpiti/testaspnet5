@@ -9,5 +9,11 @@ body .tableCrud .titleColumn {
 body .tableCrud .authorColumn {
   width: 35%; }
 
+body .cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width: 500px;
+  height: 350px; }
+
 .otraMas {
   color: purple; }

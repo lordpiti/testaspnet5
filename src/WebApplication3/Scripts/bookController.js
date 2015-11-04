@@ -1,4 +1,4 @@
-﻿function booksController($scope, $location, Movies, Categories, News, $modal,growl) {
+﻿function booksController($scope,$http, $location, Movies, Categories, News, $modal,growl) {
     $scope.testCollection = null,
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
@@ -156,4 +156,27 @@
         }
     }
 
+
+    $scope.myImage = '';
+    $scope.myCroppedImage = '';
+
+    var handleFileSelect = function (evt) {
+        var file = evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            $scope.$apply(function ($scope) {
+                $scope.myImage = evt.target.result;
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+     
+    $scope.uploadImage = function ()
+    {
+        $http.post("/api/books/postImg", '"' + $scope.myCroppedImage + '"')
+            .success(function (response) {
+                growl.success("Image successfully uploaded");
+            });
+    }
 }
