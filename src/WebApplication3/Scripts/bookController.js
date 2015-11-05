@@ -170,6 +170,7 @@
         };
         reader.readAsDataURL(file);
     };
+
     angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
      
     $scope.uploadImage = function ()
@@ -179,10 +180,19 @@
             fileName: document.querySelector('#fileInput').files[0].name
         };
 
-        //$http.post("/api/books/postImg", '"' + $scope.myCroppedImage + '"')
         $http.post("/api/books/postImg", dataToPost)
             .success(function (response) {
+                var thumbNailToAdd = { bytes: response, fileName: dataToPost.fileName };
+                //TODO: if the image already exists, do not push it to the list, just update the existing one
+                $scope.imageList.push(thumbNailToAdd);
+
                 growl.success("Image successfully uploaded");
             });
     }
+
+    $scope.imageList = {};
+    $http.get("/api/books/getAll")
+        .success(function (response) {
+            $scope.imageList = response;
+        });
 }

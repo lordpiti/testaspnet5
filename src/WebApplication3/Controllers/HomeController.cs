@@ -109,7 +109,7 @@ namespace WebApplication3.Controllers
         [HttpPost]
         [AcceptVerbs("GET", "POST")]
         [Route("/api/books/postImg")]
-        public bool PostImg([FromBody] ImageInfo postData)
+        public string PostImg([FromBody] ImageInfo postData)
         {
             string base64 = postData.bytes.Substring(postData.bytes.IndexOf(',') + 1);
             byte[] data = Convert.FromBase64String(base64);
@@ -136,7 +136,44 @@ namespace WebApplication3.Controllers
 
             //System.IO.File.WriteAllBytes("c:\\test\\jaja.png", data);
 
-            return true;
+            return blockBlob.Uri.ToString();
+        }
+
+        [HttpGet]
+        [Route("/api/books/getAll")]
+        public List<ImageInfo> GetAll()
+        {
+            var list = new List<ImageInfo>();
+
+            // Retrieve reference to a previously created container.
+            CloudBlobContainer container = _cloudStorageClient.GetContainerReference("mycontainer");
+
+            // Loop over items within the container and output the length and URI.
+            foreach (IListBlobItem item in container.ListBlobs(null, false))
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+
+                    list.Add(new ImageInfo() { fileName = blob.Name, bytes = blob.Uri.ToString() });
+                    Console.WriteLine("Block blob of length {0}: {1}", blob.Properties.Length, blob.Uri);
+
+                }
+                else if (item.GetType() == typeof(CloudPageBlob))
+                {
+                    CloudPageBlob pageBlob = (CloudPageBlob)item;
+
+                    Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
+
+                }
+                else if (item.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
+
+                    Console.WriteLine("Directory: {0}", directory.Uri);
+                }
+            }
+            return list;
         }
     }
 

@@ -80,13 +80,19 @@
                     
                     
                 </tab>
-                <tab heading="Other">
-                    Empty yet
+                <tab heading="Images">
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="item in imageList">
+                            {{item.fileName}}
+                            <img ng-src="{{item.bytes}}" />
+                        </div>
+                    </div>
                     <!--<div ng-include="'pages/test.html'"></div>-->
                 </tab>
             </tabset>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <div>Select an image file: <input type="file" id="fileInput" /></div>
@@ -101,7 +107,7 @@
         <div class="col-md-2">
             <div class="btn btn-success" ng-click="uploadImage()">UPLOAD</div>
         </div>
-
     </div>
+
     <div growl></div>
 </div>
