@@ -160,7 +160,7 @@
     $scope.myImage = '';
     $scope.myCroppedImage = '';
 
-    var handleFileSelect = function (evt) {
+    $scope.handleFileSelect = function (evt) {
         var file = evt.currentTarget.files[0];
         var reader = new FileReader();
         reader.onload = function (evt) {
@@ -171,13 +171,12 @@
         reader.readAsDataURL(file);
     };
 
-    angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
-     
+    $scope.imageFileName = "";
     $scope.uploadImage = function ()
     {      
         var dataToPost = {
             bytes: $scope.myCroppedImage,
-            fileName: document.querySelector('#fileInput').files[0].name
+            fileName: $scope.imageFileName
         };
 
         $http.post("/api/books/postImg", dataToPost)

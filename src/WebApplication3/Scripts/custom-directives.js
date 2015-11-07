@@ -12,4 +12,15 @@
         controller: function ($scope) {
         }
     } 
+})
+.directive('customOnChange', function() {
+    'use strict';
+
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            var onChangeFunc = element.scope()[attrs.customOnChange];
+            element.bind('change', onChangeFunc);
+        }
+    };
 });

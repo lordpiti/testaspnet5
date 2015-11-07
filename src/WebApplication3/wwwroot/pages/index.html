@@ -81,6 +81,7 @@
                     
                 </tab>
                 <tab heading="Images">
+
                     <div class="row">
                         <div class="col-md-3" ng-repeat="item in imageList">
                             {{item.fileName}}
@@ -95,9 +96,9 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div>Select an image file: <input type="file" id="fileInput" /></div>
+            <div>Select an image file: <input type="file" id="fileInput" custom-on-change="handleFileSelect" /></div>
             <div class="cropArea">
-                <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                <img-crop image="myImage" result-image="myCroppedImage" result-filename="imageFileName"></img-crop>
             </div>
         </div>
         <div class="col-md-4">
