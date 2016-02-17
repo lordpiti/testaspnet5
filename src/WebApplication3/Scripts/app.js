@@ -1,7 +1,7 @@
 ﻿
     loadGoogleCharts();
 
-    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap', 'ngRoute', 'customDirectives', 'customFilters', 'angular-growl', 'ngImgCrop']);
+    var theApp = angular.module('moviesApp', ['moviesServices', 'ui.bootstrap', 'ngRoute', 'customDirectives', 'customFilters', 'angular-growl', 'ngImgCrop', 'bgf.paginateAnything']);
 
     theApp.config(['$routeProvider', function ($routeProvider) { 
         $routeProvider
@@ -22,8 +22,11 @@
 
 theApp.controller('booksController', ['$scope', '$http', '$location', 'Movies', 'Categories', 'News', '$modal', 'growl', booksController])
     .controller('rssController', ['$scope', '$location', 'News', rssController])
-    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', 'categories', 'growl', instanceController]);
-
+    .controller('instanceController', ['$scope', '$modalInstance', 'currentItem', 'itemList', 'categories', 'growl', instanceController])
+    .controller('wizardController', ['$scope', wizardController])
+.controller('step1Controller', ['$scope', step1Controller])
+.controller('step2Controller', ['$scope', step2Controller])
+.controller('step3Controller', ['$scope', step3Controller])
 
     function loadGoogleCharts()
     {

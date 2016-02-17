@@ -1,5 +1,9 @@
 ﻿<div ng-controller="booksController">
 
+    <div class="row">
+        <div ng-include="'pages/wizardTemplate.html'"></div>
+    </div>
+
     <div ng-include="'pages/topMenu.html'"></div>
 
     <div class="row">
@@ -75,7 +79,14 @@
                         </div>
                     </div>
 
-
+                    <div class="col-md-12">
+                        <div ng-repeat="item in testCollection2">
+                            {{item.title}}
+                            </div>
+                        <bgf-pagination collection="testCollection2" per-page="2"
+                                        url="'/api/books/'" template-url="/pages/paginate-anything.html">
+                        </bgf-pagination>
+                    </div>
 
                     
                     

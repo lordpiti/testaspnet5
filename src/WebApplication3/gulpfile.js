@@ -41,7 +41,8 @@ gulp.task("copy", ["clean", "cleanApp"], function () {
     "angular-bootstrap": "angular-bootstrap/*.{js,map,css,ttf,svg,woff,eot}",
     "moment": "moment/*.{js,map,css,ttf,svg,woff,eot}",
     "angular-growl-v2": "angular-growl-v2/build/*.{js,map,css,ttf,svg,woff,eot}",
-    "ngImgCrop": "ngImgCrop/compile/unminified/*.{js,map,css,ttf,svg,woff,eot}"
+    "ngImgCrop": "ngImgCrop/compile/unminified/*.{js,map,css,ttf,svg,woff,eot}",
+    "angular-paginate-anything": "angular-paginate-anything/dist/paginate-anything.min.js"
   }
     //
   for (var destinationDir in bower) {

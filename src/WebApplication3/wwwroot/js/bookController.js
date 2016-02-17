@@ -1,5 +1,6 @@
 function booksController($scope,$http, $location, Movies, Categories, News, $modal,growl) {
     $scope.testCollection = null,
+    $scope.testCollection2 = null,
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
     $scope.categories = [];

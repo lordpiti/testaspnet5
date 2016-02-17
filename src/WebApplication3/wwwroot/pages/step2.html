@@ -1,0 +1,6 @@
+﻿<div ng-controller="step2Controller">
+    Content of step {{currentStep.order}}
+    <br />
+    <div ng-if="currentStep.previous!=null" class="btn btn-default" ng-click="goToPreviousStep(currentStep)">Previous</div>
+    <div ng-if="currentStep.next!=null" class="btn btn-default" ng-click="goToNextStep(SubmitStep2,currentStep)">Next</div>
+</div>
